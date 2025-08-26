@@ -1,0 +1,52 @@
+name: Deploy and Health Check
+
+on:
+  workflow_dispatch:  # manually trigger for demo
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Deploy application
+        run: echo "🚀 Simulating deployment..."
+
+      - name: Trigger Dynatrace Health Check
+        env:
+          DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_API_TOKEN }}
+          DYNATRACE_URL: ${{ secrets.DYNATRACE_URL }} # e.g. https://<your-env>.live.dynatrace.com
+          MONITOR_ID: ${{ secrets.MONITOR_ID }}       # Synthetic monitor ID
+        run: |
+          echo "🔍 Triggering Dynatrace health check..."
+          RESPONSE=$(curl -s -X POST "$DYNATRACE_URL/api/v1/synthetic/monitors/$MONITOR_ID/executions" \
+            -H "Authorization: Api-Token $DYNATRACE_API_TOKEN" \
+            -H "Content-Type: application/json")
+
+          echo "Dynatrace Response: $RESPONSE"
+
+      - name: Verify Monitor Status
+        env:
+          DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_API_TOKEN }}
+          DYNATRACE_URL: ${{ secrets.DYNATRACE_URL }}
+          MONITOR_ID: ${{ secrets.MONITOR_ID }}
+        run: |
+          echo "⏳ Waiting for health check result..."
+          sleep 20
+          STATUS=$(curl -s "$DYNATRACE_URL/api/v1/synthetic/monitors/$MONITOR_ID" \
+            -H "Authorization: Api-Token $DYNATRACE_API_TOKEN" \
+            | jq -r '.status')
+
+          echo "Monitor Status: $STATUS"
+
+          if [ "$STATUS" != "ENABLED" ]; then
+            echo "❌ Health check failed!"
+            exit 1
+          fi
+
+          echo "✅ Health check passed!"
