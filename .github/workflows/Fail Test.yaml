@@ -1,0 +1,19 @@
+name: Fail Test Workflow
+
+on:
+  workflow_dispatch:   # manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run success step
+        run: echo "This step works fine ✅"
+
+      - name: Force failure step
+        run: |
+          echo "Now we are going to fail ❌"
+          exit 1   # Force failure
