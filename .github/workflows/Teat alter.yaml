@@ -1,4 +1,4 @@
-name: Deploy and Health Check
+name: Check
 
 on:
   workflow_dispatch:  # manually trigger for demo
