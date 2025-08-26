@@ -10,7 +10,7 @@ jobs:
       - name: Send test event to Dynatrace
         run: |
           curl -X POST \
-            https://jvc12148.live.dynatrace.com/ui/apps/v2/events/ingest \
+            https://jvc12148.apps.dynatrace.com/ui/apps/v2/events/ingest \
             -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
             -H "Content-Type: application/json" \
             -d '{
