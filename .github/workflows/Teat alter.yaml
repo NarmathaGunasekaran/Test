@@ -3,8 +3,7 @@ name: Deploy and Health Check
 on:
   workflow_dispatch:  # manually trigger for demo
   push:
-    branches:
-      - main
+   
 
 jobs:
   deploy:
