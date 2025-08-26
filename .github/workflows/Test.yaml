@@ -15,13 +15,8 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
                   "eventType": "CUSTOM_DEPLOYMENT",
-                  "title": "Teat event from aithub actions",
+                       "title": "Teat event from aithub actions",
                   "properties": {
                     "source": "github workflow"
-                    - name: Set up Python
-                    uses: actions/setup-python@v2
-                    with:
-                    - name: Run tests
-                    run: |
-                    cd src
-                    python -m pytest test.py
+                  }
+                }'
