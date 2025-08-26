@@ -11,7 +11,7 @@ jobs:
         run: |
           curl -X POST "https://jvc12148.apps.dynatrace.com/api/v2/events/ingest" \
             -H "Content-Type: application/json" \
-            -H "Authorization: Api-Token ${{ secrets.DYNATRACE_API_TOKEN }}" \
+            -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
             -d '{
                   "eventType": "CUSTOM_INFO",
                   "title": "Test event from GitHub Actions",
