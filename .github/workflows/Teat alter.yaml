@@ -19,27 +19,27 @@ jobs:
 
       - name: Trigger Dynatrace Health Check
         env:
-          DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_API_TOKEN }}
-          DYNATRACE_URL: ${{ secrets.DYNATRACE_URL }} # e.g. https://<your-env>.live.dynatrace.com
+          DYNATRACE_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
+          DYNATRACE_URL: ${{ secrets.DT_TENANT_URL }} # e.g. https://<your-env>.live.dynatrace.com
           MONITOR_ID: ${{ secrets.MONITOR_ID }}       # Synthetic monitor ID
         run: |
           echo "🔍 Triggering Dynatrace health check..."
-          RESPONSE=$(curl -s -X POST "$DYNATRACE_URL/api/v1/synthetic/monitors/$MONITOR_ID/executions" \
-            -H "Authorization: Api-Token $DYNATRACE_API_TOKEN" \
+          RESPONSE=$(curl -s -X POST "$https://jvc12148.live.dynatrace.com/api/v1/synthetic/monitors/$MONITOR_ID/executions" \
+            -H "Authorization: Api-Token $DT_API_TOKEN" \
             -H "Content-Type: application/json")
 
           echo "Dynatrace Response: $RESPONSE"
 
       - name: Verify Monitor Status
         env:
-          DYNATRACE_API_TOKEN: ${{ secrets.DYNATRACE_API_TOKEN }}
-          DYNATRACE_URL: ${{ secrets.DYNATRACE_URL }}
+          DYNATRACE_API_TOKEN: ${{ secrets.DT_API_TOKEN }}
+          DYNATRACE_URL: ${{ secrets.DT_TENANT_URL }}
           MONITOR_ID: ${{ secrets.MONITOR_ID }}
         run: |
           echo "⏳ Waiting for health check result..."
           sleep 20
-          STATUS=$(curl -s "$DYNATRACE_URL/api/v1/synthetic/monitors/$MONITOR_ID" \
-            -H "Authorization: Api-Token $DYNATRACE_API_TOKEN" \
+          STATUS=$(curl -s "$https://jvc12148.live.dynatrace.com/api/v1/synthetic/monitors/$MONITOR_ID" \
+            -H "Authorization: Api-Token $DT_API_TOKEN" \
             | jq -r '.status')
 
           echo "Monitor Status: $STATUS"
