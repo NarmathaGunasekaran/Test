@@ -10,16 +10,14 @@ jobs:
       - name: Send test event to Dynatrace
         run: |
           curl -X POST \
-            https://jvc12148.live.dynatrace.com/api/v2/events/ingest \
-            -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
-            -H "Content-Type: application/json" \
-            -d '{
-                  "eventType": "CUSTOM_DEPLOYMENT",
-                  "title": "GitHub → Dynatrace Test",
-                  "properties": {
-                    "repository": "${{ github.repository }}",
-                    "workflow": "${{ github.workflow }}",
-                    "run_id": "${{ github.run_id }}",
-                    "status": "success"
-                  }
-                }'
+  "https://jvc12148.live.dynatrace.com/api/v2/events/ingest" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
+  -d '{
+        "eventType": "CUSTOM_INFO",
+        "title": "Curl Event Test - Check Visibility",
+        "properties": {
+          "info": "Testing event visibility"
+        }
+      }'
+        
