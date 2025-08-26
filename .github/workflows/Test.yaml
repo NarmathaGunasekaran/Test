@@ -1,23 +1,22 @@
-name: Dynatrace Test Event
+name: Send event to Dynatrace
 
 on:
-  workflow_dispatch:   # allows manual trigger
+  workflow_dispatch:
 
-jobs: 
+jobs:
   send-event:
     runs-on: ubuntu-latest
     steps:
-      - name: Send test event to Dynatrace
+      - name: Send test event
         run: |
-          curl -X POST \
-          "https://jvc12148.live.dynatrace.com/api/v2/events/ingest" \
-          -H "Content-Type: application/json" \
-          -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" 
-          -d '{
-        "eventType": "CUSTOM_INFO",
-        "title": "Curl Event Test - Check Visibility",
-        "properties": {
-          "info": "Testing event visibility"
-        }
-      }'
-        
+          curl -X POST "https://jvc12148.apps.dynatrace.com/api/v2/events/ingest" \
+            -H "Content-Type: application/json" \
+            -H "Authorization: Api-Token ${{ secrets.DYNATRACE_API_TOKEN }}" \
+            -d '{
+                  "eventType": "CUSTOM_INFO",
+                  "title": "Test event from GitHub Actions",
+                  "properties": {
+                    "trigger": "workflow"
+                    "info": "Testing event visibility"
+                  }
+                }'
