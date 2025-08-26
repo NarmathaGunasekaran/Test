@@ -17,8 +17,6 @@ jobs:
                   "eventType": "CUSTOM_DEPLOYMENT",
                   "title": "Teat event from aithub actions",
                   "properties": {
-                    "source": "github workflow",
-                    "status": "success"
-                    "info": "Testing event visibility"
+                    "source": "github workflow"
                   }
                 }'
