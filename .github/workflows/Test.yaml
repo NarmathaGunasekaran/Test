@@ -15,11 +15,9 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{
                   "eventType": "CUSTOM_DEPLOYMENT",
-                  "title": "GitHub → Dynatrace Test",
+                  "title": "Teat event from aithub actions",
                   "properties": {
-                    "repository": "${{ github.repository }}",
-                    "workflow": "${{ github.workflow }}",
-                    "run_id": "${{ github.run_id }}",
+                    "source": "github workflow",
                     "status": "success"
                     "info": "Testing event visibility"
                   }
