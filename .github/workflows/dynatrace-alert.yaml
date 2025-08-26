@@ -1,7 +1,8 @@
 name: Dynatrace Alert Handler
 
 on:
-  repository_dispatch:
+ workflow_dispatch:
+ repository_dispatch:
     types: [dynatrace_alert]
 
 jobs:
