@@ -10,10 +10,10 @@ jobs:
       - name: Send test event to Dynatrace
         run: |
           curl -X POST \
-  "https://jvc12148.live.dynatrace.com/api/v2/events/ingest" \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
-  -d '{
+          "https://jvc12148.live.dynatrace.com/api/v2/events/ingest" \
+          -H "Content-Type: application/json" \
+          -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" 
+          -d '{
         "eventType": "CUSTOM_INFO",
         "title": "Curl Event Test - Check Visibility",
         "properties": {
