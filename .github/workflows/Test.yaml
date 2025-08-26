@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Send test event
         run: |
-          curl -X POST "https://jvc12148.apps.dynatrace.com/api/v2/events/ingest" \
+          curl -X POST "https://jvc12148.live.dynatrace.com/api/v2/events/ingest" \
             -H "Content-Type: application/json" \
             -H "Authorization: Api-Token ${{ secrets.DT_API_TOKEN }}" \
             -d '{
