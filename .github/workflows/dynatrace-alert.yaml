@@ -1,0 +1,18 @@
+name: Dynatrace Alert Handler
+
+on:
+  repository_dispatch:
+    types: [dynatrace_alert]
+
+jobs:
+  handle-alert:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Alert Data
+        run: |
+          echo "🚨 Dynatrace Alert Received"
+          echo "State: ${{ github.event.client_payload.State }}"
+          echo "Title: ${{ github.event.client_payload.ProblemTitle }}"
+          echo "Severity: ${{ github.event.client_payload.SeverityLevel }}"
+          echo "Entity: ${{ github.event.client_payload.ImpactedEntity }}"
+          echo "Link: ${{ github.event.client_payload.ProblemURL }}"
